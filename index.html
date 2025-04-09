@@ -1,51 +1,49 @@
+
 <!DOCTYPE html>
-<html lang="fa">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>فرم ورود تکنسین</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Submission</title>
 </head>
-<body class="bg-gray-100 p-4">
-  <div class="max-w-xl mx-auto bg-white p-6 rounded shadow">
-    <h2 class="text-xl font-bold mb-4 text-center">فرم ثبت فعالیت تکنسین</h2>
-    <form id="technicianForm">
-      <div class="mb-4">
-        <label for="technician" class="block font-semibold">نام تکنسین:</label>
-        <input type="text" id="technician" name="technician" required class="w-full p-2 rounded border border-gray-300" />
-      </div>
-      <div class="mb-4">
-        <label for="assistant" class="block font-semibold">تکنسین همراه:</label>
-        <input type="text" id="assistant" name="assistant" class="w-full p-2 rounded border border-gray-300" />
-      </div>
-      <div class="mb-4">
-        <label for="task" class="block font-semibold">تسک:</label>
-        <input type="text" id="task" name="task" required class="w-full p-2 rounded border border-gray-300" />
-      </div>
-      <div class="mb-4">
-        <label for="activity" class="block font-semibold">فعالیت انجام شده:</label>
-        <textarea id="activity" name="activity" rows="3" required class="w-full p-2 rounded border border-gray-300"></textarea>
-      </div>
-      <div class="mb-4">
-        <label for="device" class="block font-semibold">مشخصات دستگاه:</label>
-        <input type="text" id="device" name="device" class="w-full p-2 rounded border border-gray-300" />
-      </div>
-      <div class="mb-4">
-        <label for="date" class="block font-semibold">تاریخ:</label>
-        <input type="date" id="date" name="date" required class="w-full p-2 rounded border border-gray-300" />
-      </div>
-      <div class="mb-4">
-        <label for="barcode" class="block font-semibold">بارکد بیس:</label>
-        <input type="text" id="barcode" name="barcode" required class="w-full p-2 rounded border border-gray-300" />
-      </div>
-      <div class="mb-4">
-        <label for="techCode" class="block font-semibold">کد اختصاصی تکنسین:</label>
-        <input type="password" id="techCode" name="techCode" placeholder="مثلاً 1234" required class="w-full p-2 rounded border border-gray-300" />
-      </div>
-      <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">ارسال</button>
+<body>
+    <h2>Technician Work Log</h2>
+    <form id="logForm">
+        <label for="technicianName">Technician Name:</label><br>
+        <input type="text" id="technicianName" name="technicianName" required><br><br>
+
+        <label for="task">Task:</label><br>
+        <input type="text" id="task" name="task" required><br><br>
+
+        <label for="activity">Activity:</label><br>
+        <textarea id="activity" name="activity" required></textarea><br><br>
+
+        <label for="device">Device Details:</label><br>
+        <input type="text" id="device" name="device" required><br><br>
+
+        <label for="date">Date:</label><br>
+        <input type="date" id="date" name="date" required><br><br>
+
+        <label for="barcode">Barcode ID:</label><br>
+        <input type="text" id="barcode" name="barcode" required><br><br>
+
+        <button type="submit">Submit</button>
     </form>
-    <p id="status" class="mt-4 text-center"></p>
-  </div>
-  <script src="script.js"></script>
+
+    <script>
+        const scriptURL = "https://script.google.com/macros/s/AKfycbw9WlUt_0gKwJDVpsbGrvWhocPeV575Mfe76u_kypcHZ-PW_fz0ALce1cjPrBXd3VQ9/exec";
+        const form = document.getElementById("logForm");
+
+        form.addEventListener("submit", function(e) {
+            e.preventDefault();
+            const formData = new FormData(form);
+            fetch(scriptURL, { method: 'POST', body: formData })
+                .then(response => {
+                    alert("Form submitted successfully!");
+                    form.reset();
+                })
+                .catch(error => console.error("Error:", error));
+        });
+    </script>
 </body>
 </html>
